@@ -5,3 +5,6 @@
 # @FileName :   views.py
 # @Software :   PyCharm
 
+from django.shortcuts import HttpResponse,redirect,render
+
+

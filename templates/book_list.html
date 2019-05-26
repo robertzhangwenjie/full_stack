@@ -65,7 +65,7 @@ maximum-scale=1, user-scalable=no">
                             <td>{{ book.title }}</td>
                             <td>{{ book.publisher.name }}</td>
                             <td>
-                                {% for author in book.author_set.all() %}
+                                {% for author in book.author_set.all %}
 
                                     {% if loop.last %}
                                         {{ author.name }}

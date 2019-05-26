@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+maximum-scale=1, user-scalable=no">
+    <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    {% load static %}
+    {% load app03_filters %}
+    {% get_static_prefix as STATIC_PREFIX %}
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>id</th>
+                    <th>书名</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for book in books %}
+                            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+            </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <nav>
+            <ul class="pagination">
+                {{ pager_html|safe }}
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<script src="{{ STATIC_PREFIX }}jquery-3.3.0.min.js"></script>
+<script src="{{ STATIC_PREFIX }}bootstrap/js/bootstrap.min.js"></script>
+<script>
+    var page = window.location.href.split('/').slice(-1)[0];
+    console.log(page);
+    $('a[href="'+page+'"]').parent().addClass('active');
+
+</script>
+</body>
+</html>

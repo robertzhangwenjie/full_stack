@@ -1,7 +1,9 @@
 import datetime
 
+from django.http import JsonResponse
 from django.test import TestCase
 from django.shortcuts import  render,redirect,HttpResponse
+from django.urls import reverse
 from app01.models import *
 # Create your tests here.
 
@@ -32,6 +34,21 @@ def t_test(request):
     file_size = 10240
     slice_str = 'robertwenjie'
     html = "<p>testfsdsfdsfdsfs<p>"
-    return render(request,'test.html',locals())
+    person = 'robert'
+    greeting = 'heelo'
+    # return render(request, 'test.html', locals())
+    return JsonResponse(name_list,safe=False)
 
+
+def t_test2(request):
+
+    return redirect(reverse('test',kwargs={'a':1,'b':2,'c':3}))
+
+
+def yimi(request,a,b,c):
+    ret = [a,b,c]
+    return JsonResponse(ret,safe=False)
+
+def test(request):
+    return render(request,'yimi.html')
 

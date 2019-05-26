@@ -5,8 +5,16 @@
 # @FileName :   filters.py
 # @Software :   PyCharm
 
+'''
+自定义的filter
+'''
 
 def sb(value):
     return '{}SB'.format(value)
+
+def add_str(value,string):
+    return value + string
+
+
 
 

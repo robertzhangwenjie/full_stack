@@ -39,13 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app01.apps.App01Config', # 加入新建的App
     'app01.templatetags',
+    'wenjie',
+    'app02',
+    'app03',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -54,9 +57,28 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'full_stack.urls'
 
 TEMPLATES = [
+    # {
+    #     'BACKEND': 'django.template.backends.jinja2.Jinja2'
+    #     ,
+    #     'DIRS': [os.path.join(BASE_DIR, 'templates')]
+    #     ,
+    #     'APP_DIRS': True,
+    #     'OPTIONS': {
+    #         'context_processors': [
+    #             'django.template.context_processors.debug',
+    #             'django.template.context_processors.request',
+    #             'django.contrib.auth.context_processors.auth',
+    #             'django.contrib.messages.context_processors.messages',
+    #         ],
+    #         'environment':'full_stack.jinja.env.JinjaEnvironment',
+    #         'extensions':[
+    #             'jinja2.ext.loopcontrols',
+    #             'jdj_tags.extensions.DjangoCompat',
+    #         ],
+    #     },
+    # },
     {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2'
-        ,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
         'APP_DIRS': True,
@@ -67,7 +89,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'environment':'full_stack.jinja.env.JinjaEnvironment',
         },
     },
 ]
@@ -144,3 +165,23 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
 ]
+
+APPEND_SLASH = True
+
+LOGGING = {
+    'version':1,
+    'disable_existing_loggers':False,
+    'handlers':{
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler'
+        },
+    },
+    'loggers':{
+        'django.db.backends':{
+            'handlers':['console'],
+            'propagate':True,
+            'level':'DEBUG',
+        },
+    }
+}

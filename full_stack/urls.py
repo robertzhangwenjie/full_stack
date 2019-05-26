@@ -14,29 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,re_path
+from django.urls import path,re_path,include
 from app01.views import *
-from app01.tests import *
+import app01.urls
+import app03.urls
+import wenjie.urls
 
 urlpatterns = [
-    path('',index),
+    re_path(r'^wenjie/',include(wenjie.urls)),
     path('admin/', admin.site.urls),
-    path('login',login),
-    # 作者对应关系
-    path('user_list',user_list),
-    path('add_user',add_user),
-    path('del_user',del_user),
-    path('change_user',change_user),
-    # 书籍对应关系
-    path('add_book',add_book),
-    path('book_list',book_list),
-    path('edit_book',edit_book),
-    path('del_book',del_book),
-    # 出版社对应关系
-    path('publisher_list',publisher_list),
-    path('add_publisher',add_publisher),
-    path('del_publisher',del_publisher),
-    path('edit_publisher',edit_publisher),
-    # 测试
-    path('t_test',t_test),
+    re_path(r'^app01/',include(app01.urls)),
+    re_path(r'^app03/',include(app03.urls))
 ]

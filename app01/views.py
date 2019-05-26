@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import HttpResponse,render,redirect
 from app01 import models
+from django.urls import reverse
 
 def index(request):
     # with open('templates/yimi.html',encoding='utf-8') as f:
@@ -14,7 +15,7 @@ def index(request):
 # 展示所有出版社
 def publisher_list(request):
     publishers = models.Publisher.objects.all()
-    return render(request,'publisher_list.html',locals())
+    return render(request,'new_publisher_list.html',locals())
 
 # 新增出版社
 def add_publisher(request):
@@ -24,6 +25,21 @@ def add_publisher(request):
         models.Publisher.objects.create(name=publisher_name,addr=publisher_addr)
         return redirect('/publisher_list')
     return HttpResponse('新增失败')
+
+# CBV版 类视图
+from django.views import View
+
+class AddPublisher(View):
+    def post(self,request):
+        print(request.body)
+        print(request.POST)
+        publisher_name = request.POST.get('publisher_name', None)
+        publisher_addr = request.POST.get('publisher_addr', None)
+        if publisher_addr and publisher_name:
+            models.Publisher.objects.create(name=publisher_name, addr=publisher_addr)
+            return redirect('/publisher_list')
+        return HttpResponse('新增失败')
+
 
 # 删除出版社
 def del_publisher(request):
@@ -51,8 +67,7 @@ def book_list(request):
     for book in all_books:
         book.author_set.all()
     publishers = models.Publisher.objects.all()
-    # print(all_books)
-    return render(request,'book_list.html',locals())
+    return render(request,'new_book_list.html',locals())
 
 # 删除书籍
 def del_book(request):
@@ -116,8 +131,7 @@ def user_list(request):
     books = models.Book.objects.all()
     # 获取author_list[0]对象所关联的所有book对象
     book_list = author_list[0].book.all()
-    print(book_list)
-    return render(request,'user_list.html',{'user_list':author_list,'books':books})
+    return render(request,'new_user_list.html',{'user_list':author_list,'books':books})
 
 def add_user(request):
     error_message = ''
@@ -189,4 +203,14 @@ def login(request):
 
     return render(request,'login.html',{'error_message':error_message})
 
-
+def upload_file(request):
+    file = request.FILES.get('upload_file')
+    # 获取文件对象的名称
+    file_name = file.name
+    print(file_name)
+    # 将接收的文件写入到本地，本地文件名称为接收的文件名称
+    with open(file_name,'wb') as f:
+        # 循环读取上传的文件的chunks(),相当于是分块读取然后写入
+        for chunk in request.FILES['upload_file'].chunks():
+            f.write(chunk)
+    return render(request,'test.html')

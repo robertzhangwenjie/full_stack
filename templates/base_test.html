@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+maximum-scale=1, user-scalable=no">
+    <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-fileinput-master/css/fileinput.min.css">
+</head>
+<body>
+{% include 'nav-bar.html' %}
+
+{% load app01_mytags %}
+{% show_results 10 %}
+<div class="container">
+<form action="/upload_file" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-group row">
+{#    <label for="upload_file"></label>#}
+        <div class="col-sm-3">
+             <input type="file" name="upload_file" class="form-control" id="upload_file">
+        </div>
+                <div class="col-sm-3">
+             <input type="file" name="upload_file_1" class="form-control" id="upload_file1">
+        </div>
+    <button class="btn btn-success" type="submit">提交</button>
+    </div>
+</form>
+    </div>
+
+<script src="/static/jquery-3.3.0.min.js"></script>
+<script src="/static/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+</body>
+
+</html>

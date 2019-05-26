@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+maximum-scale=1, user-scalable=no">
+    <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    {% load static %}
+    {% get_static_prefix as STATIC_PREFIX %}
+    <link rel="stylesheet" href="{{ STATIC_PREFIX }}bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>id</th>
+                <th>作者名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for author in authors %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ author.id }}</td>
+                <td>{{ author.name }}</td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <nav>
+            <ul class="pagination">
+                {{ page_html|safe }}
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
