@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'wenjie',
     'app02',
     'app03',
+    'session_app',
+    'ajax_demo'
 ]
 
 MIDDLEWARE = [
@@ -185,3 +187,10 @@ LOGGING = {
         },
     }
 }
+
+
+
+# Session配置
+SESSION_COOKIE_NAME = 'token' #SESSION存储在COOKIE中的key名称
+SESSION_SAVE_EVERY_REQUEST = True
+

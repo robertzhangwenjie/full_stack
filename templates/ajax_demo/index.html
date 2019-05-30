@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+maximum-scale=1, user-scalable=no">
+    {% load static %}
+    <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+</head>
+<body>
+{% csrf_token %}
+<input type="text" id="t1"> +
+<input type="text" id="t2"> =
+<input type="text" id="t3">
+<input type="button" value="AJAX提交" id="b1">
+</body>
+<script src="/static/jquery-3.3.0.min.js"></script>
+<script src="/static/js/ajaxSetup.js"></script>
+<script>
+    $('#b1').on('click',function () {
+        //找到页面上的csrftoken
+        {#var csrftoken = $("[name='csrfmiddlewaretoken']").val();#}
+        {#var csrftoken = getCookie('csrftoken');#}
+        $.ajax({
+                {#请求的url#}
+                url:"ajax_add",
+                {#请求的类型#}
+                type:"post",
+                {#请求携带的数据#}
+                data:{
+                    "t1":$("#t1").val(),"t2":$("#t2").val()
+                },
+                {#响应成功后处理的函数，参数为响应返回的数据#}
+                success:function (data) {
+                    $("#t3").val(data);
+                    var imgEle = document.createElement('p');
+                    imgEle.innerText = data;
+                    $('#b1').after(imgEle);
+                }
+            })
+    })
+</script>
+</html>

@@ -18,11 +18,15 @@ from django.urls import path,re_path,include
 from app01.views import *
 import app01.urls
 import app03.urls
+import session_app.urls
 import wenjie.urls
+import ajax_demo.urls
 
 urlpatterns = [
     re_path(r'^wenjie/',include(wenjie.urls)),
     path('admin/', admin.site.urls),
     re_path(r'^app01/',include(app01.urls)),
-    re_path(r'^app03/',include(app03.urls))
+    re_path(r'^app03/',include(app03.urls)),
+    re_path(r'^session_app/',include(session_app.urls)),
+    re_path(r'^ajax_demo/',include(ajax_demo.urls)),
 ]
